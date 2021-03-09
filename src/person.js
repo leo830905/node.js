@@ -5,7 +5,8 @@ class Person {
     }
 
     toJSON() {
-        const { name, age } = this;
+        const { name, age } = this;  //name = this.name   age=this.age
+
         return { name, age }
     }
 }
