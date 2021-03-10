@@ -53,7 +53,7 @@ app.get("/try-post-form", (req, res) => {            //form
 
 
 app.post("/try-post-form", (req, res) => {           //form
-    res.json(req.body);
+    res.render("try-post-form", req.body);
 })
 
 
