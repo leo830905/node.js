@@ -1,2 +1,5 @@
 package-lock.json
 node_modules
+public/BootStrap
+public/fontawesome
+public/lib
