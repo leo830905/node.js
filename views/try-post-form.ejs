@@ -1,0 +1,45 @@
+<%- include("parts/html-head.ejs") %>
+    <%- include("parts/navbar.ejs") %>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password" name="password">
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="cbox">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+
+
+                    <!-- 
+    console.log
+exampleInputPassword1.value
+"leoloe"
+document.getElementById("exampleInputPassword1").value
+"leoloe"
+$("#exampleInputPassword1").attr("type","text")
+S.fn.init [input#exampleInputPassword1.form-control]0: input#exampleInputPassword1.form-controllength: 1__proto__: Object(0)
+$("#exampleInputPassword1").attr("type","password")
+S.fn.init [input#exampleInputPassword1.form-control] -->
+
+                </div>
+            </div>
+
+
+        </div>
+        <%- include("parts/scripts.ejs") %>
+            <%- include("parts/html-foot.ejs") %>
