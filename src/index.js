@@ -2,6 +2,10 @@ const express = require("express");
 require("dotenv").config();
 const fs = require("fs/promises")
 const app = express();
+
+const multer = require("multer");
+const upload = require(__dirname + "/modules/upload.module.js")
+
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));         //用form url傳
@@ -43,8 +47,32 @@ app.get("/try-qs", (req, res) => {                            //query string
 
 
 app.post("/try-post", (req, res) => {
+    req.body.comefrom = "/try-post";
+    req.body.clientMethod = "POST";
+    // res.end(JSON.stringify(req.body));            //res.end(字串)
     res.json(req.body);
 })
+
+app.put("/try-post", (req, res) => {
+    req.body.comefrom = "/try-post";
+    req.body.clientMethod = "PUT";
+    res.json(req.body);
+})
+
+app.delete("/try-post", (req, res) => {
+    req.body.comefrom = "/try-post";
+    req.body.clientMethod = "DELETE";
+    res.json(req.body);
+})
+
+app.post("/try-upload", upload.single("avatar"), (req, res) => {    //upload, 一定要middleware,avatar丟到postman的KEY,postman要設定成formdata,第一欄改成file
+    req.file.FormBody = req.body;
+    res.json(req.file);
+})
+
+
+
+
 
 
 app.get("/try-post-form", (req, res) => {            //form
