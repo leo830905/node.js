@@ -83,12 +83,12 @@ app.post("/try-upload", upload.single("avatar"), (req, res) => {    //upload, �
     res.json(req.file);
 })
 
-app.post("/try-uploads", upload.array("photo", 10), (req, res) => {   //上傳多張照片  single=>array
+app.post("/try-uploads", upload.array("photo", 10), (req, res) => {   //上傳多張照片 single=>array 要把名字"photo"跟後面的name對到,後面參數給最多同時點選幾個
 
-    res.json(req.files);
+    res.json(req.files);   //多個檔案 file=>files
 })
 
-app.get("/my-params1/:action/:id", (req, res) => {   //網址 .../my-params1/haha(action)/15(id)
+app.get("/my-params1/:action/:id", (req, res) => {      //網址 .../my-params1/haha(action)/15(id)
     res.json(req.params);
 })
 
@@ -104,21 +104,19 @@ app.get(/^\/m\/09\d{2}-?\d{3}-?\d{3}$/, (req, res) => {
 app.use("/haha", require(__dirname + "/route/admin.js"))
 
 
-app.get("/try-post-form", (req, res) => {            //form
+app.get("/try-post-form", (req, res) => {                   //form
     res.render("try-post-form");
 })
 
 
-app.post("/try-post-form", (req, res) => {           //form
+app.post("/try-post-form", (req, res) => {                  //form
     res.render("try-post-form", req.body);
 })
 
-app.get("/try-session", (req, res) => {
+app.get("/try-session", (req, res) => {                     //session
     req.session.myCount = req.session.myCount || 0,
         req.session.myCount++,
-        res.json(
-            req.session
-        )
+        res.json(req.session)
 })
 
 app.use(async (req, res) => {
