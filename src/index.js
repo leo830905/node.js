@@ -4,8 +4,8 @@ const fs = require("fs/promises")
 const app = express();
 
 const multer = require("multer");
-const upload = require(__dirname + "/modules/upload.module.js")
-
+const upload = require(__dirname + "/modules/upload.module.js");
+const moment = require("moment-timezone");
 
 
 app.set("view engine", "ejs");
@@ -25,10 +25,13 @@ app.use(express.urlencoded({ extended: false }));         //用form url傳
 app.use(express.json());                                  //用json傳
 
 
-
 app.use(express.static("public"));   //將public資料夾設為根目錄,底下的檔案都能從網址直接叫
 //用use是把REST方法都包含在內(GET,POST...)
 
+app.use((req, res, next) => {
+    res.locals.sess = req.session || {};
+    next();
+});
 
 
 app.get("/", (req, res) => {
@@ -117,6 +120,65 @@ app.get("/try-session", (req, res) => {                     //session
     req.session.myCount = req.session.myCount || 0,
         req.session.myCount++,
         res.json(req.session)
+})
+
+const admins = {
+    "superadmins": {
+        "password": "666",
+        "nickname": "小白"
+    },
+
+    "mike": {
+        "password": "777",
+        "nickname": "小黑"
+    }
+}
+
+
+
+app.get("/Login", (req, res) => {
+    res.render("Login")
+})
+
+
+app.post("/Login", (req, res) => {
+    const output = {
+        success: false,
+        error: "",
+        code: 0
+    }
+
+    if (admins[req.body.account]) {
+        if (admins[req.body.account]["password"] === req.body.password) {
+            output.success = true;
+            req.session.admin = {
+                "account": req.body.account,
+                "nickname": admins[req.body.account].nickname
+            }
+        } else { output.error = "帳號或密碼錯誤" }
+    } else {
+        output.error = "帳號或密碼錯誤"
+    }
+
+    res.json(output);
+})
+
+app.get("/Logout", (req, res) => {
+    delete req.session.admin;
+    res.redirect("/Login")
+})
+
+
+
+app.get("/try-moment", (req, res) => {
+    const fm = "YYYY-MM-DD HH:mm:ss";
+    const now = new Date();
+    const a = moment(now).format(fm);
+    const b = moment(now).tz("Europe/London").format(fm);
+    res.json({
+        a: a,
+        b: b
+    })
 })
 
 app.use(async (req, res) => {
