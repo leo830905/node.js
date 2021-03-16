@@ -6,7 +6,8 @@ const app = express();
 const multer = require("multer");
 const upload = require(__dirname + "/modules/upload.module.js");
 const moment = require("moment-timezone");
-
+const cors = require("cors");
+app.use(cors());
 
 app.set("view engine", "ejs");
 
@@ -180,6 +181,8 @@ app.get("/try-moment", (req, res) => {
         b: b
     })
 })
+
+app.use("/address-book", require(__dirname + "/route/address-book.js"))
 
 app.use(async (req, res) => {
     const error = await fs.readFile(__dirname + "/../public/404.html")

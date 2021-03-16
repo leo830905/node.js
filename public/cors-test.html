@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 用cors後可以用Live server開啟，可以Cross Origon   -->
+    <div id="info"></div>
+    <script>
+        fetch("http://localhost:4000/address-book")
+            .then(r => r.json())
+            .then(obj => {
+                info.innerText = JSON.stringify(obj.rows[0]);
+            })
+
+
+
+    </script>
+</body>
+
+</html>
